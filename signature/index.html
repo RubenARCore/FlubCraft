@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>FlubCraft – имейл подпис</title>
+</head>
+<body style="margin:12px;background:#fff;font-family:Arial,sans-serif">
+  <main>
+    <div style="overflow-x:auto">
+      <div id="signature" style="width:max-content">
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,sans-serif;color:#101226;background:#fff;border-collapse:collapse"><tr><td width="260" valign="middle" style="width:260px;padding:8px 0 8px 0"><img src="https://flubcraft.com/signature/flubcraft-logo.png" width="248" alt="FlubCraft — Digital Solutions" style="display:block;border:0;width:248px;height:auto"><table cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;border-left:1px solid #9699a8"><tr><td style="padding:0 0 0 12px"><div style="font-size:19px;font-weight:bold;line-height:24px;color:#101226">Рубен Йорданов</div><div style="font-size:11px;color:#45485a;line-height:17px">Софтуерни решения за бизнеса</div><div style="font-size:12px;line-height:23px;margin-top:6px"><span style="color:#7829e8">☎</span>&nbsp; <a href="tel:+359896348366" style="color:#101226;text-decoration:none">089 634 8366</a><br><span style="color:#7829e8">✉</span>&nbsp; <a href="mailto:yordanov.ruben@gmail.com" style="color:#101226;text-decoration:none">yordanov.ruben@gmail.com</a><br><span style="color:#7829e8">↗</span>&nbsp; <a href="https://flubcraft.com/" style="color:#101226;text-decoration:none">www.flubcraft.com</a></div></td></tr></table></td><td valign="middle" style="padding:0"><a href="https://flubcraft.com/" style="text-decoration:none"><img src="https://flubcraft.com/signature/flubcraft-panel.png" width="510" alt="Дигитални решения за реалния бизнес. Уеб разработка · 3D конфигуратори · Бизнес софтуер · Автоматизация" style="display:block;border:0;width:510px;height:auto"></a></td></tr></table>
+      </div>
+    </div>
+    <p><button type="button" id="copy">Копирай подписа</button></p>
+    <p id="status" role="status"></p>
+  </main>
+  <script>
+    const signature = document.getElementById('signature');
+    const status = document.getElementById('status');
+
+    document.getElementById('copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/html': new Blob([signature.innerHTML.trim()], { type: 'text/html' }),
+          'text/plain': new Blob([signature.innerText.trim()], { type: 'text/plain' })
+        })]);
+        status.textContent = 'Подписът е копиран.';
+        return;
+      } catch {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(signature);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        if (document.execCommand('copy')) {
+          selection.removeAllRanges();
+          status.textContent = 'Подписът е копиран.';
+        } else {
+          status.textContent = 'Подписът е маркиран. Натиснете Ctrl+C или ⌘C, за да го копирате.';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
